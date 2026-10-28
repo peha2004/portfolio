@@ -1,18 +1,17 @@
+
 import { useState } from 'react'
 import { CONFIG } from '../data.js'
 
 function CopyButton({ value }) {
-  const [label, setLabel] = useState('copy')
+  const [label, setLabel] = useState('Copy')
 
-  function copy() {
-    const done = () => {
-      setLabel('copied')
-      setTimeout(() => setLabel('copy'), 1500)
-    }
+  async function copy() {
     try {
-      navigator.clipboard.writeText(value).then(done, () => setLabel('select it'))
+      await navigator.clipboard.writeText(value)
+      setLabel('Copied!')
+      setTimeout(() => setLabel('Copy'), 1500)
     } catch {
-      setLabel('select it')
+      setLabel('Copy manually')
     }
   }
 
@@ -25,32 +24,74 @@ function CopyButton({ value }) {
 
 export default function Contact() {
   const rows = [
-    CONFIG.github && { key: 'GitHub', value: CONFIG.github, href: CONFIG.github },
-    CONFIG.linkedin && { key: 'LinkedIn', value: CONFIG.linkedin, href: CONFIG.linkedin },
-    CONFIG.email && { key: 'Email', value: CONFIG.email, copy: true },
-  ].filter(Boolean)
+    {
+      key: 'Email',
+      value: CONFIG.email,
+      href: `mailto:${CONFIG.email}`,
+    },
+    {
+      key: 'Phone',
+      value: CONFIG.phone,
+      href: `tel:${CONFIG.phone.replace(/\s/g, '')}`,
+    },
+    {
+      key: 'LinkedIn',
+      value: 'linkedin.com/in/ranuthi-pehansa-peiris-23a8ba390',
+      href: CONFIG.linkedin,
+    },
+    {
+      key: 'GitHub',
+      value: 'github.com/peha2004',
+      href: CONFIG.github,
+    },
+  ].filter((row) => row.value && row.href)
 
   return (
     <section id="contact" className="contact" data-sec="contact">
       <p className="label">contact.ts</p>
+
       <h2>Let's build something.</h2>
+
+      <p className="contact-intro">
+        Have an opportunity, a project idea, or just want to connect?
+        Feel free to reach out.
+      </p>
+
       <ul className="links">
-        {rows.map((r) => (
-          <li key={r.key}>
-            <span className="k">{r.key}</span>
-            <span>
-              {r.href ? (
-                <a className="v" href={r.href} target="_blank" rel="noopener noreferrer">
-                  {r.value.replace(/^https?:\/\//, '')}
-                </a>
-              ) : (
-                <span className="v">{r.value}</span>
-              )}
-              {r.copy && <CopyButton value={r.value} />}
+        {rows.map((row) => (
+          <li key={row.key}>
+            <span className="k">{row.key}</span>
+
+            <span className="contact-value">
+              <a
+                className="v"
+                href={row.href}
+                target={
+                  row.key === 'LinkedIn' || row.key === 'GitHub'
+                    ? '_blank'
+                    : undefined
+                }
+                rel={
+                  row.key === 'LinkedIn' || row.key === 'GitHub'
+                    ? 'noopener noreferrer'
+                    : undefined
+                }
+              >
+                {row.value}
+              </a>
+
+              <CopyButton value={row.key === 'Email' || row.key === 'Phone'
+                ? row.value
+                : row.href}
+              />
             </span>
           </li>
         ))}
       </ul>
+
+      <a className="contact-cta" href={`mailto:${CONFIG.email}`}>
+        <span>✉</span> Get in touch <span aria-hidden="true">↗</span>
+      </a>
     </section>
   )
 }

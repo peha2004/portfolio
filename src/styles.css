@@ -1559,3 +1559,200 @@ main > .scroll-reveal:first-child {
   }
 }
 
+
+/* PROJECT GITHUB BUTTON */
+
+.project-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.github-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 11px 17px;
+  border: 1px solid rgba(143, 162, 255, 0.5);
+  border-radius: 8px;
+  background: rgba(143, 162, 255, 0.12);
+  color: var(--accent, #a787ff);
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.github-button:hover {
+  background: #8f72ff;
+  color: #fff;
+  border-color: #8f72ff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(143, 114, 255, 0.2);
+}
+
+.github-button svg {
+  flex-shrink: 0;
+}
+
+/* CONTACT SECTION */
+
+.contact-intro {
+  max-width: 600px;
+  margin: 12px 0 28px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.contact .links {
+  max-width: 760px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.contact .links li {
+  display: grid;
+  grid-template-columns: 100px minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+  padding: 19px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.contact .k {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.contact-value {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  min-width: 0;
+}
+
+.contact .v {
+  color: var(--fg);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: color 0.2s ease;
+}
+
+.contact .v:hover {
+  color: var(--accent, #a787ff);
+}
+
+.contact .copy {
+  flex-shrink: 0;
+  padding: 6px 11px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.contact .copy:hover {
+  color: var(--accent, #a787ff);
+  border-color: var(--accent, #a787ff);
+}
+
+.contact-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 28px;
+  padding: 13px 19px;
+  border-radius: 8px;
+  background: #8f72ff;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.contact-cta:hover {
+  background: #7655f5;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 480px) {
+  .contact .links li {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .contact-value {
+    justify-content: flex-start;
+  }
+}
+
+
+/* Project hover and expand animation */
+.proj {
+  overflow: hidden;
+  transition:
+    background-color 280ms ease,
+    border-color 280ms ease,
+    box-shadow 280ms ease;
+}
+
+.proj:hover,
+.proj[open] {
+  background: rgba(127, 92, 255, 0.07);
+  border-color: rgba(167, 135, 255, 0.4);
+}
+
+.proj > summary {
+  cursor: pointer;
+  transition: color 250ms ease, padding-left 250ms ease;
+}
+
+.proj:hover > summary,
+.proj[open] > summary {
+  color: #a787ff;
+  padding-left: 8px;
+}
+
+.proj .p-body {
+  transform-origin: top;
+}
+
+.proj[open] .p-body {
+  animation: projectReveal 350ms ease both;
+}
+
+@keyframes projectReveal {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .proj,
+  .proj > summary,
+  .proj[open] .p-body {
+    animation: none;
+    transition: none;
+  }
+}
