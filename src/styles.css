@@ -1486,3 +1486,76 @@ body {
 }
 
 
+/* =========================================
+   SMOOTH SCROLLING
+========================================= */
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+section[id] {
+  scroll-margin-top: 90px;
+}
+
+/* =========================================
+   FADE-UP ON SCROLL
+========================================= */
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.75s ease,
+    transform 0.75s cubic-bezier(0.2, 0.65, 0.3, 1);
+}
+
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Show the first section immediately */
+main > .scroll-reveal:first-child {
+  opacity: 1;
+  transform: none;
+}
+
+/* Reveal About content with a small delay */
+.scroll-reveal.is-visible .about-grid > div {
+  animation: aboutFadeUp 0.65s ease both;
+}
+
+.scroll-reveal.is-visible .facts {
+  animation: aboutFadeUp 0.65s ease 0.15s both;
+}
+
+@keyframes aboutFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Respect accessibility settings */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .scroll-reveal,
+  .scroll-reveal.is-visible .about-grid > div,
+  .scroll-reveal.is-visible .facts {
+    opacity: 1;
+    transform: none;
+    animation: none;
+    transition: none;
+  }
+}
+

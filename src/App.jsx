@@ -5,6 +5,9 @@ import About from './components/About.jsx'
 import Projects from './components/Projects.jsx'
 import Stack from './components/Stack.jsx'
 import Contact from './components/Contact.jsx'
+import ScrollReveal from './components/ScrollReveal.jsx'
+import NetworkBackground from './components/NetworkBackground.jsx'
+
 
 export default function App() {
   const [active, setActive] = useState('top')
@@ -24,16 +27,35 @@ export default function App() {
   }, [])
 
   return (
-    <div className="shell">
-      <Sidebar active={active} />
-      <main>
+  <div className="shell">
+    <NetworkBackground />
+    <Sidebar active={active} />
+
+    <main>
+      <ScrollReveal>
         <Hero />
+      </ScrollReveal>
+
+      <ScrollReveal>
         <About />
+      </ScrollReveal>
+
+      <ScrollReveal>
         <Projects />
+      </ScrollReveal>
+
+      <ScrollReveal>
         <Stack />
+      </ScrollReveal>
+
+      <ScrollReveal>
         <Contact />
-        <footer>Ranuthi, 2026. Built with React and Vite.</footer>
-      </main>
-    </div>
-  )
+      </ScrollReveal>
+
+      <footer>
+        Ranuthi, 2026. Built with React and Vite.
+      </footer>
+    </main>
+  </div>
+)
 }
